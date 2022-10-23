@@ -18,7 +18,7 @@ export const HeaderRegister = styled.div`
 display: flex;
 flex-direction: row;
 width: 30vh;
-justify-content: space-between;
+justify-content: center;
 align-items: center;
 margin-bottom: 2vh;
 `

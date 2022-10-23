@@ -2,10 +2,10 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../../validators/Form.validator';
 import { ContainerButton, ContainerRegister, FormFields, HeaderRegister, RegisterSubTitle, RegisterTitle } from './Form.page.style';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { Contexts } from '../../providers/Context';
-import { ButtonDarkGray, ButtonPink, FormDefaut, LogoImg, MainRegister } from '../../components/form.style';
+import {  ButtonPink, FormDefaut, LogoImg, MainRegister } from '../../components/form.style';
 
 const FormPage = () => {
 
@@ -23,9 +23,9 @@ const FormPage = () => {
               <HeaderRegister>
                 <LogoImg src="/logo.png" alt="Logo kenziehub" />
                 
-                <Link replace to="/login">
+                {/* <Link replace to="/login">
                  <ButtonDarkGray>acompanhar solicitação</ButtonDarkGray>
-                </Link>
+                </Link> */}
                 
               </HeaderRegister>
               <ContainerRegister>

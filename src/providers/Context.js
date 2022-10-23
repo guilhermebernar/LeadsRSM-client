@@ -1,10 +1,7 @@
-// import { createContext} from "react";
 import api from "../services/api"
-
 import { createContext, useState, useEffect } from "react";
-// import api from "../services/api";
 import { useNavigate } from "react-router-dom";
-// import { fail } from "../components/mensages";
+import { fail, atendimentoSolicitado } from "../components/mensages";
 
 export const Contexts = createContext({})
 
@@ -12,10 +9,9 @@ const ContextsProvider = ({children})=>{
   
     const navigate = useNavigate()
 
-//   const [loading, setLoading] = useState(true)
-//   const location = useLocation()
-
     const [videoEnd, setVideoEnd] = useState(false)
+    // const [editRequest, setEditRequest] = useState(false)
+    // const [deleteRequest, setDeleteRequest] = useState(false)
     
     const end = () => {
       setVideoEnd(true)
@@ -30,12 +26,20 @@ const ContextsProvider = ({children})=>{
   const dateGenerate = new Date();
   
   async function registerLead(data) {
-    const newJson = JSON.stringify({...data, createAt: dateGenerate})
+    const newJson = {...data, CreateAt: dateGenerate}
     await api
-        .post('/api/leads', newJson)
-        .catch(function (error) {console.log(error)});
-    // const toNavigate = location.state?.from?.pathname || "/end"
-  }
+        .post('/api/leads', JSON.stringify(newJson))
+        .then(function (response) {
+          const idRequest = response.data.id
+          atendimentoSolicitado();
+          navigate(`/request/${idRequest}`, { replace: true });
+          
+        }).catch(function (error) {
+          console.error(error);
+          fail()
+        });
+  
+      };
 
 
   return(

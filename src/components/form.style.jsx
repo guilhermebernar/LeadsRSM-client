@@ -163,5 +163,5 @@ margin: 0 0 0.5vh 0;
 export const LogoImg = styled.img`
 display: flex;
 align-items: center;
-max-height: 3.5vh;
+max-height: 5vh;
 `

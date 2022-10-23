@@ -17,8 +17,8 @@ type: "success",
 toastId: 1,
 })} 
 
-export const orcamentoSolicitado = () => {
-toast('Orçamento solicitado com sucesso! 😊', {
+export const atendimentoSolicitado = () => {
+toast('Atendimento solicitado com sucesso! 😊', {
 ...defautConfig,
 type: "success",
 toastId: 2,
