@@ -34,7 +34,7 @@ const FormPage = () => {
                   <RegisterTitle>Preencha rapidinho...</RegisterTitle>
                   <RegisterSubTitle>Não dura mais de 3 minutinhos, logo falaremos com você!</RegisterSubTitle>
                 </div>
-                {/* {handleSubmit(d => console.log(d)) */}
+
                 <FormDefaut onSubmit={handleSubmit(registerLead)}>
                   <FormFields >
                     <label htmlFor='Name'>Nome:</label>
@@ -52,7 +52,6 @@ const FormPage = () => {
                       <option value='pequena' >Pequena: até 99 pessoas</option>
                       <option value='media' >Média: 100 - 499</option>
                       <option value='grande' >Grande: acima de 500</option>
-                      <option value='corporacao' >4º Modulo</option>
                     </select>
 
                     <label disabled selected value htmlFor='TypeRequest'>Tipo do serviço:</label>

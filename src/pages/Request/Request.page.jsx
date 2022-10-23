@@ -10,10 +10,10 @@ import { Contexts } from '../../providers/Context';
 
 const RequestPage = () => {
         
-        const { setDeleteRequest,
+        const { executeDelete,
                 setEditRequest,
                 editRequest,
-                // updateRequest
+                updateRequest
         } = useContext(Contexts)
 
         const {
@@ -25,7 +25,7 @@ const RequestPage = () => {
 
         const edit = () => {setEditRequest(true)}
         const editOff = () => {setEditRequest(false)}
-        const deleteReq = () => {setDeleteRequest(true)}
+        const deleteReq = () => {executeDelete()}
         
     return (
             <MainRegister>
@@ -39,15 +39,9 @@ const RequestPage = () => {
                 
               </HeaderRegister>
               <ContainerRegister>
-                <DoneGif src="/done.png" alt="Done" />
-                <div>
-                  <RegisterTitle>Atendimento requisitado</RegisterTitle>
-                  <RegisterSubTitle>Logo falaremos com você!</RegisterSubTitle>
-                </div>
-                {/* */}
-                {/* onSubmit={handleSubmit(updateRequest)} */}
+
                 { editRequest===true?
-                <FormDefaut onSubmit={handleSubmit(d => console.log(d))}>
+                <FormDefaut onSubmit={handleSubmit(updateRequest)}>
                   <FormFields >
                     <label htmlFor='Name'>Nome:</label>
                     <input type='text' id='Name' {...register('Name')} />
@@ -64,7 +58,6 @@ const RequestPage = () => {
                       <option value='pequena' >Pequena: até 99 pessoas</option>
                       <option value='media' >Média: 100 - 499</option>
                       <option value='grande' >Grande: acima de 500</option>
-                      <option value='corporacao' >4º Modulo</option>
                     </select>
 
                     <label disabled selected value htmlFor='TypeRequest'>Tipo do serviço:</label>
@@ -93,15 +86,22 @@ const RequestPage = () => {
         
                   </FormFields>
                   <ContainerButton>
-                    <ButtonDefaut>Editar requisição</ButtonDefaut>
+                    <ButtonDefaut type='submit'>Editar requisição</ButtonDefaut>
                     <ButtonDefaut onClick={editOff}>voltar</ButtonDefaut>
                   </ContainerButton>
                 </FormDefaut>
                 :
+                <>
+                <DoneGif src="/done.png" alt="Done" />
+                <div>
+                  <RegisterTitle>Atendimento requisitado</RegisterTitle>
+                  <RegisterSubTitle>Logo falaremos com você!</RegisterSubTitle>
+                </div>
                 <ContainerButton>
                     <ButtonDefaut onClick={edit}>Editar</ButtonDefaut>
                     <ButtonDefaut onClick={deleteReq}>Excluir requisição</ButtonDefaut>
                 </ContainerButton>
+                </>
                 }
               </ContainerRegister>
             </MainRegister>

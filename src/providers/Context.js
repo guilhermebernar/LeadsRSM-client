@@ -1,6 +1,6 @@
 import api from "../services/api"
 import { createContext, useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { fail, atendimentoSolicitado, atendimentoDeletado, atendimentoEditado} from "../components/mensages";
 
 export const Contexts = createContext({})
@@ -8,12 +8,10 @@ export const Contexts = createContext({})
 const ContextsProvider = ({children})=>{
   
     const navigate = useNavigate()
-    const location = useLocation()
 
     const [videoEnd, setVideoEnd] = useState(false)
     const [leadOn, setLeadOn] = useState(null)
     const [editRequest, setEditRequest] = useState(false)
-    const [deleteRequest, setDeleteRequest] = useState(false)
     
     const end = () => {
       setVideoEnd(true)
@@ -26,6 +24,8 @@ const ContextsProvider = ({children})=>{
     },[navigate, videoEnd])
 
   const dateGenerate = new Date();
+
+
   
   async function registerLead(data) {
     const newJson = {...data, CreateAt: dateGenerate}
@@ -35,10 +35,11 @@ const ContextsProvider = ({children})=>{
         .then(function (response) {
           const res = response.data
           const idRequest = res.id
-          console.log(idRequest)
+
           const nextPage = ()=> navigate(`/request/${idRequest}`,{ replace: true })
           
           setLeadOn(response.data)
+          window.localStorage.setItem("id", response.data.id)
 
           atendimentoSolicitado();
           
@@ -55,36 +56,43 @@ const ContextsProvider = ({children})=>{
         });
     };
 
+    const requestId = window.localStorage.getItem('id')
+
     async function updateRequest(data){
+;
       const newJson = {
-        Id: leadOn.id,
+        Id: requestId,
         ...data,
         CreateAt: dateGenerate
       }
-      await api.put(`/api/leads/${leadOn.id}`, JSON.stringify(newJson))
+
+      await api.put(`/api/leads/${requestId}`, JSON.stringify(newJson))
       .then(atendimentoEditado())
       .catch(function (error) {
         console.error(error);
         fail()})
     }
 
-
-    if(deleteRequest===true){
     async function executeDelete(){
-    await api.delete(`/api/leads/${leadOn.id}`)
-    .then(atendimentoDeletado())
+    const deleteId = window.localStorage.getItem('id')
+    await api.delete(`/api/leads/${deleteId}`)
+    .then(
+    atendimentoDeletado(),
+    window.localStorage.clear(),
+    navigate(`/form`,{ replace: true }))
     .catch(function (error) {
       console.error(error);
-      fail()
-    })}
-    executeDelete()
-    }
+      fail()}
+    )}
+    
+    // window.localStorage.clear()
+    
 
   return(
   <Contexts.Provider value={{
     end,
     registerLead,
-    setDeleteRequest,
+    executeDelete,
     setEditRequest,
     editRequest,
     updateRequest
