@@ -1,21 +1,31 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../../validators/Form.validator';
-import { ContainerButton, ContainerRegister, FormFields, HeaderRegister, RegisterSubTitle, RegisterTitle } from './Form.page.style';
+import { ContainerButton, ContainerRegister, DoneGif, FormFields, HeaderRegister, RegisterSubTitle, RegisterTitle } from './Resquest.page.style';
+import { ButtonDefaut, FormDefaut, LogoImg, MainRegister } from '../../components/form.style';
 // import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { Contexts } from '../../providers/Context';
-import {  ButtonDefaut, FormDefaut, LogoImg, MainRegister } from '../../components/form.style';
 
-const FormPage = () => {
+
+const RequestPage = () => {
+        
+        const { setDeleteRequest,
+                setEditRequest,
+                editRequest,
+                // updateRequest
+        } = useContext(Contexts)
 
         const {
-          register,
-          handleSubmit,
-          formState: { errors },
-        } = useForm({resolver: yupResolver(schema)});
-      
-        const {registerLead} = useContext(Contexts)
+            register,
+            handleSubmit,
+            formState: { errors },
+            } = useForm({resolver: yupResolver(schema)});
+
+
+        const edit = () => {setEditRequest(true)}
+        const editOff = () => {setEditRequest(false)}
+        const deleteReq = () => {setDeleteRequest(true)}
         
     return (
             <MainRegister>
@@ -29,13 +39,15 @@ const FormPage = () => {
                 
               </HeaderRegister>
               <ContainerRegister>
-                
+                <DoneGif src="/done.png" alt="Done" />
                 <div>
-                  <RegisterTitle>Preencha rapidinho...</RegisterTitle>
-                  <RegisterSubTitle>Não dura mais de 3 minutinhos, logo falaremos com você!</RegisterSubTitle>
+                  <RegisterTitle>Atendimento requisitado</RegisterTitle>
+                  <RegisterSubTitle>Logo falaremos com você!</RegisterSubTitle>
                 </div>
-                {/* {handleSubmit(d => console.log(d)) */}
-                <FormDefaut onSubmit={handleSubmit(registerLead)}>
+                {/* */}
+                {/* onSubmit={handleSubmit(updateRequest)} */}
+                { editRequest===true?
+                <FormDefaut onSubmit={handleSubmit(d => console.log(d))}>
                   <FormFields >
                     <label htmlFor='Name'>Nome:</label>
                     <input type='text' id='Name' {...register('Name')} />
@@ -81,12 +93,19 @@ const FormPage = () => {
         
                   </FormFields>
                   <ContainerButton>
-                    <ButtonDefaut type='submit'>Cadastrar</ButtonDefaut>
+                    <ButtonDefaut>Editar requisição</ButtonDefaut>
+                    <ButtonDefaut onClick={editOff}>voltar</ButtonDefaut>
                   </ContainerButton>
                 </FormDefaut>
+                :
+                <ContainerButton>
+                    <ButtonDefaut onClick={edit}>Editar</ButtonDefaut>
+                    <ButtonDefaut onClick={deleteReq}>Excluir requisição</ButtonDefaut>
+                </ContainerButton>
+                }
               </ContainerRegister>
             </MainRegister>
             );    
 }
 
-export default FormPage
+export default RequestPage

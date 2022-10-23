@@ -31,7 +31,7 @@ padding: 0 5vh 5vh 5vh;
 @media (min-width:700px){padding: 2vh 15vh 0 15vh;}
 `
 
-export const ButtonPink = styled.button`
+export const ButtonDefaut = styled.button`
 cursor:pointer;
 display: flex;
 justify-content: center;
@@ -46,6 +46,7 @@ font-family: var(--font);
 font-size: var(--headline);
 width: 100%;
 transition: 0.3s;
+margin-bottom: 4vh;
 &:hover{
   background-color: var(--color-primary-negative)
 }

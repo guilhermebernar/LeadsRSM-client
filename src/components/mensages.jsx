@@ -7,7 +7,7 @@ const defautConfig = {
   pauseOnHover: true,
   draggable: true,
   progress: undefined,
-  theme: "ligth",
+  // theme: "ligth",
 }
 
 export const wellcome = () => {
@@ -24,9 +24,23 @@ type: "success",
 toastId: 2,
 })}
 
+export const atendimentoDeletado = () => {
+toast('Atendimento deletado com sucesso.', {
+...defautConfig,
+type: "success",
+toastId: 3,
+})}
+
+export const atendimentoEditado = () => {
+  toast('Atendimento editado com sucesso.', {
+  ...defautConfig,
+  type: "success",
+  toastId: 4,
+  })}
+
 export const fail = () => {
 toast('Algo errado, tente denovo...', {
 ...defautConfig,
 type: "error",
-toastId: 3,
+toastId: 5,
 })}
